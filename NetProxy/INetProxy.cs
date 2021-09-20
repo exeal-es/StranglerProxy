@@ -1,6 +1,6 @@
 ﻿using System.Web.Http.Controllers;
 
-namespace NetProxy
+namespace NetFwkProxy
 {
     public interface INetProxy
     {

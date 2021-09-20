@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Http.Controllers;
 
-namespace NetProxy
+namespace NetFwkProxy
 {
     public class NetProxy : INetProxy
     {

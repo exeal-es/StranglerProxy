@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetProxy", "NetProxy\NetProxy.csproj", "{F59732E9-D919-43D0-A759-550D3DE4BCAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetFwkProxy", "NetProxy\NetFwkProxy.csproj", "{F59732E9-D919-43D0-A759-550D3DE4BCAD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTest", "WebTest\WebTest.csproj", "{A540CBEE-6019-4A83-811E-2E70E7937EA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTest2", "WebTest2\WebTest2.csproj", "{516D9A8E-134B-4F45-8BA3-0217FB739E2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStandardProxy", "NetStandardProxy\NetStandardProxy.csproj", "{3DDF21B2-5F82-4A9A-AA74-0E4A1C04E83C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTestCore", "WebTestCore\WebTestCore.csproj", "{F8BD3A18-C093-4220-83E2-8BB24C0D62C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +25,14 @@ Global
 		{A540CBEE-6019-4A83-811E-2E70E7937EA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A540CBEE-6019-4A83-811E-2E70E7937EA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A540CBEE-6019-4A83-811E-2E70E7937EA2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{516D9A8E-134B-4F45-8BA3-0217FB739E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{516D9A8E-134B-4F45-8BA3-0217FB739E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{516D9A8E-134B-4F45-8BA3-0217FB739E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{516D9A8E-134B-4F45-8BA3-0217FB739E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DDF21B2-5F82-4A9A-AA74-0E4A1C04E83C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DDF21B2-5F82-4A9A-AA74-0E4A1C04E83C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DDF21B2-5F82-4A9A-AA74-0E4A1C04E83C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DDF21B2-5F82-4A9A-AA74-0E4A1C04E83C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8BD3A18-C093-4220-83E2-8BB24C0D62C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8BD3A18-C093-4220-83E2-8BB24C0D62C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8BD3A18-C093-4220-83E2-8BB24C0D62C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8BD3A18-C093-4220-83E2-8BB24C0D62C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

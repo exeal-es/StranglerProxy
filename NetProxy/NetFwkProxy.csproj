@@ -7,8 +7,8 @@
     <ProjectGuid>{F59732E9-D919-43D0-A759-550D3DE4BCAD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NetProxy</RootNamespace>
-    <AssemblyName>NetProxy</AssemblyName>
+    <RootNamespace>NetFwkProxy</RootNamespace>
+    <AssemblyName>NetFwkProxy</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

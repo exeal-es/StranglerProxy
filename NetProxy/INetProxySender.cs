@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace NetProxy
+namespace NetFwkProxy
 {
     public interface INetProxySender
     {

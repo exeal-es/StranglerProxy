@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
+using NetFwkProxy;
 
 namespace WebTest.Controllers
 {
@@ -7,14 +8,21 @@ namespace WebTest.Controllers
     {
         [Route("test")]
         [HttpGet]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> Test()
         {
-            var l = new NetProxy.NetProxy(new System.Uri("https://localhost:44391/"));
+            var l = new NetProxy(new System.Uri("https://localhost:44391/"));
 
             var result = await l.Fordward(this.ActionContext)
                    .Send<DTO>();
 
             return this.Ok(result);
+        }
+
+        [Route("test2")]
+        [HttpGet]
+        public IHttpActionResult Test2()
+        {
+            return this.Ok(new DTO() { Name = "test " });
         }
     }
 

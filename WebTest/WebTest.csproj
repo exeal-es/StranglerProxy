@@ -139,9 +139,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NetProxy\NetProxy.csproj">
-      <Project>{F59732E9-D919-43D0-A759-550D3DE4BCAD}</Project>
-      <Name>NetProxy</Name>
+    <ProjectReference Include="..\NetProxy\NetFwkProxy.csproj">
+      <Project>{f59732e9-d919-43d0-a759-550d3de4bcad}</Project>
+      <Name>NetFwkProxy</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

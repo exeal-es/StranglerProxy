@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using Newtonsoft.Json;
 
-namespace NetProxy
+namespace NetFwkProxy
 {
     public class NetProxySender : INetProxySender
     {
