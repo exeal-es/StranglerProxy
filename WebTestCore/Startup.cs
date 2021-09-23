@@ -30,7 +30,7 @@ namespace WebTestCore
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseReverseProxyMiddleare();
+            app.UseReverseProxyMiddleware();
 
             app.UseHttpsRedirection();
 

@@ -33,14 +33,14 @@ namespace NetStandardProxy
             this.ValidateDestinationURL(this.destinationURL);
         }
 
-        public async Task Invoke(HttpContext context)
+        public Task Invoke(HttpContext context)
         {
             if (!this.TheRequestHasControllerListening(context))
             {
-                await this.Fordward(context);
+                return this.Fordward(context);
             }
 
-            await this.next.Invoke(context);
+            return this.next.Invoke(context);
         }
 
         private Boolean TheRequestHasControllerListening(HttpContext context)

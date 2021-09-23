@@ -24,6 +24,13 @@ namespace WebTest.Controllers
         {
             return this.Ok(new DTO() { Name = "test " });
         }
+
+        [Route("test3/{hello}")]
+        [HttpGet]
+        public IHttpActionResult Test3(string hello)
+        {
+            return this.Ok(new DTO() { Name = hello });
+        }
     }
 
     public class DTO
