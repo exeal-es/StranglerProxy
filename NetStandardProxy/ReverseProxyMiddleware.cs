@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.Extensions.Configuration;
 
 namespace NetStandardProxy
@@ -14,17 +18,22 @@ namespace NetStandardProxy
 
         private readonly IActionDescriptorCollectionProvider actionDescriptorCollectionProvider;
 
+        private readonly IActionSelector actionSelector;
+
         private readonly HttpClient httpclient;
 
         private readonly String destinationURL;
 
         public ReverseProxyMiddleware(RequestDelegate next,
             IActionDescriptorCollectionProvider actionDescriptorCollectionProvider,
+            IActionSelector actionSelector,
             IConfiguration configuration)
         {
             this.next = next;
 
             this.actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
+
+            this.actionSelector = actionSelector;
 
             this.httpclient = new HttpClient();
 
@@ -43,16 +52,13 @@ namespace NetStandardProxy
             return this.next.Invoke(context);
         }
 
-        private Boolean TheRequestHasControllerListening(HttpContext context)
+        private bool TheRequestHasControllerListening(HttpContext context)
         {
             var path = context.Request.Path.Value;
 
-            var routes = this.actionDescriptorCollectionProvider
-                             .ActionDescriptors
-                             .Items
-                             .Select(ad => $"/{ad.AttributeRouteInfo.Template}");
+            var action = this.GetMatchingAction(path, context.Request.Method);
 
-            return routes.Any(route => path.Equals(route, StringComparison.InvariantCultureIgnoreCase));
+            return action != null;
         }
 
         private async Task Fordward(HttpContext context)
@@ -107,6 +113,60 @@ namespace NetStandardProxy
                 throw new Exception("Please check the destination URL in your appsettings. " +
                     "If you don't added yet, please add this following lines:" +
                     "'ReverseProxy': { 'DestinationURL': 'https://localhost:44322/' }");
+        }
+
+        private ActionDescriptor GetMatchingAction(string path, string httpMethod)
+        {
+            var actionDescriptors = this.actionDescriptorCollectionProvider.ActionDescriptors.Items;
+
+            var matchingDescriptors = new List<ActionDescriptor>();
+
+            foreach (var actionDescriptor in actionDescriptors)
+            {
+                var matchesRouteTemplate = this.MatchesTemplate(actionDescriptor.AttributeRouteInfo.Template, path);
+
+                if (matchesRouteTemplate)
+                {
+                    matchingDescriptors.Add(actionDescriptor);
+                }
+            }
+
+            var httpContext = new DefaultHttpContext();
+
+            httpContext.Request.Path = path;
+
+            httpContext.Request.Method = httpMethod;
+
+            var routeContext = new RouteContext(httpContext);
+
+            return actionSelector.SelectBestCandidate(routeContext, matchingDescriptors.AsReadOnly());
+        }
+
+
+        public bool MatchesTemplate(string routeTemplate, string requestPath)
+        {
+            var template = TemplateParser.Parse(routeTemplate);
+
+            var matcher = new TemplateMatcher(template, this.GetDefaults(template));
+
+            var values = new RouteValueDictionary();
+
+            return matcher.TryMatch(requestPath, values);
+        }
+
+        private RouteValueDictionary GetDefaults(RouteTemplate parsedTemplate)
+        {
+            var result = new RouteValueDictionary();
+
+            foreach (var parameter in parsedTemplate.Parameters)
+            {
+                if (parameter.DefaultValue != null)
+                {
+                    result.Add(parameter.Name, parameter.DefaultValue);
+                }
+            }
+
+            return result;
         }
     }
 }
