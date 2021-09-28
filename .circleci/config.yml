@@ -1,0 +1,17 @@
+version: 2.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: microsoft/dotnet:latest
+    steps:
+      - checkout
+      - run:
+          working_directory: ~/
+          command: |
+            dotnet test
+
+workflows:
+  sample:
+    jobs:
+      - build-and-test
