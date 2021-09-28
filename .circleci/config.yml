@@ -1,18 +1,15 @@
 version: 2.1
 
+orbs:
+  win: circleci/windows@2.2.0
 jobs:
-  build-and-test:
-    docker:
-      - image: microsoft/dotnet:latest
+  build:
+    working_directory: ~/repo
+    executor: win/default
+
     steps:
       - checkout
       - run:
-          working_directory: ~/project/App.Tests
-          name: Run tests
+          working_directory: ~/repo
           command: |
             dotnet test
-
-workflows:
-  sample:
-    jobs:
-      - build-and-test
