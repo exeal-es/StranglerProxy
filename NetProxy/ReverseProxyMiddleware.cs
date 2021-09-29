@@ -87,8 +87,8 @@ namespace NetProxy
         {
             if (!Uri.IsWellFormedUriString(destinationURL, UriKind.Absolute))
                 throw new Exception("Please check the destination URL in your appsettings. " +
-                    "If you don't added yet, please add this following lines:" +
-                    "'ReverseProxy': { 'DestinationURL': 'https://localhost:44322/' }");
+                                    "If you don't added yet, please add this following lines:" +
+                                    "'ReverseProxy': { 'DestinationURL': 'https://localhost:44322/' }");
         }
     }
 }

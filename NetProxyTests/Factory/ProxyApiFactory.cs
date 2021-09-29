@@ -7,7 +7,6 @@ namespace NetProxyTests
         public ProxyApiFactory()
             : base("http://localhost:5000")
         {
-
         }
     }
 }

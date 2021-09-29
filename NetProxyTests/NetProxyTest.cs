@@ -74,7 +74,8 @@ namespace NetProxyTests
         {
             // Arrange
             var client = this.proxyApiFactory.CreateClient();
-            var content = new StringContent(JsonConvert.SerializeObject(new { Body = "Hi" }), System.Text.Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonConvert.SerializeObject(new {Body = "Hi"}), System.Text.Encoding.UTF8,
+                "application/json");
 
             // Act
 
@@ -93,7 +94,8 @@ namespace NetProxyTests
         {
             // Arrange
             var client = this.proxyApiFactory.CreateClient();
-            var content = new StringContent(JsonConvert.SerializeObject(new { Body = "Hi" }), System.Text.Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonConvert.SerializeObject(new {Body = "Hi"}), System.Text.Encoding.UTF8,
+                "application/json");
 
             // Act
 
@@ -112,7 +114,8 @@ namespace NetProxyTests
         {
             // Arrange
             var client = this.proxyApiFactory.CreateClient();
-            var content = new StringContent(JsonConvert.SerializeObject(new { Body = "Hi" }), System.Text.Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonConvert.SerializeObject(new {Body = "Hi"}), System.Text.Encoding.UTF8,
+                "application/json");
 
             // Act
 
@@ -131,7 +134,8 @@ namespace NetProxyTests
         {
             // Arrange
             var client = this.proxyApiFactory.CreateClient();
-            var content = new StringContent(JsonConvert.SerializeObject(new { Body = "Hi" }), System.Text.Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonConvert.SerializeObject(new {Body = "Hi"}), System.Text.Encoding.UTF8,
+                "application/json");
 
             // Act
 

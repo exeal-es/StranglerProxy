@@ -38,10 +38,7 @@ namespace ProxyApi
 
             app.UseReverseProxyMiddleware();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

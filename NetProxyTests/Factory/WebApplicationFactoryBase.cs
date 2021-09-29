@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 namespace NetProxyTests
 {
     public class WebApplicationFactoryBase<TStartup> : WebApplicationFactory<TStartup>
-           where TStartup : class
+        where TStartup : class
     {
         private readonly string DestinationURLAddress;
 
@@ -39,11 +39,11 @@ namespace NetProxyTests
             var builder = WebHost.CreateDefaultBuilder(Array.Empty<string>());
 
             builder
-            .ConfigureAppConfiguration((builderContext, config) =>
-            {
-                var env = builderContext.HostingEnvironment;
-                config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-            });
+                .ConfigureAppConfiguration((builderContext, config) =>
+                {
+                    var env = builderContext.HostingEnvironment;
+                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                });
 
             builder.UseStartup<TStartup>().UseUrls(this.DestinationURLAddress);
 

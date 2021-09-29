@@ -11,7 +11,9 @@ namespace NetProxy
 {
     internal static class ActionDescriptorExtension
     {
-        public static MatchingDescriptor GetPossibleActionMatchersFor(this IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, string requestPath, string httpMethod)
+        public static MatchingDescriptor GetPossibleActionMatchersFor(
+            this IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, string requestPath,
+            string httpMethod)
         {
             var actionDescriptors = actionDescriptorCollectionProvider.GetMatchersDescriptorsFor(requestPath);
 
@@ -26,18 +28,22 @@ namespace NetProxy
             return new MatchingDescriptor(routeContext, actionDescriptors);
         }
 
-        public static bool HasMatcherController(this IActionSelector actionSelector, MatchingDescriptor matchingDescriptor)
+        public static bool HasMatcherController(this IActionSelector actionSelector,
+            MatchingDescriptor matchingDescriptor)
         {
-            var actionMatch = actionSelector.SelectBestCandidate(matchingDescriptor.RouteContext, matchingDescriptor.ActionDescriptors);
+            var actionMatch = actionSelector.SelectBestCandidate(matchingDescriptor.RouteContext,
+                matchingDescriptor.ActionDescriptors);
 
             return actionMatch != null;
         }
 
-        private static IEnumerable<ActionDescriptor> GetMatchersDescriptorsFor(this IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, string requestPath)
+        private static IEnumerable<ActionDescriptor> GetMatchersDescriptorsFor(
+            this IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, string requestPath)
         {
             return actionDescriptorCollectionProvider.ActionDescriptors
-                                                     .Items
-                                                     .Where(actionDescriptor => HasMatcherController(actionDescriptor.AttributeRouteInfo.Template, requestPath));
+                .Items
+                .Where(actionDescriptor =>
+                    HasMatcherController(actionDescriptor.AttributeRouteInfo.Template, requestPath));
         }
 
         private static bool HasMatcherController(string routeTemplate, string requestPath)
