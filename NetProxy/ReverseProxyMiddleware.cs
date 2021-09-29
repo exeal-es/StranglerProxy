@@ -42,7 +42,7 @@ namespace NetProxy
         {
             if (!HasMatcherController(context))
             {
-                return Fordward(context);
+                return Forward(context);
             }
 
             return next.Invoke(context);
@@ -59,7 +59,7 @@ namespace NetProxy
             return actionSelector.HasMatcherController(matcher);
         }
 
-        private async Task Fordward(HttpContext context)
+        private async Task Forward(HttpContext context)
         {
             var url = context.Request.Path.ToUriComponent();
 
