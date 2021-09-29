@@ -35,7 +35,7 @@ And also you need to add destination proxy url in your proxy api `appsettings.js
 
 ## :balance_scale: License
 
-MIT
+[MIT](https://github.com/exeal-es/StranglerProxy/blob/main/LICENSE)
 
 ## Maintainers
 
