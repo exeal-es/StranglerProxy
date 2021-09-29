@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace NetProxy
 {
-    public static class HttpContextExtension
+    internal static class HttpContextExtension
     {
         public static HttpRequestMessage CloneRequestFor(this HttpContext context, Uri targetUri)
         {

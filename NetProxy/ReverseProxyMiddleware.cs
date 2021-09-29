@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace NetProxy
 {
-    public class ReverseProxyMiddleware
+    internal class ReverseProxyMiddleware
     {
         private readonly RequestDelegate next;
 
@@ -54,7 +54,7 @@ namespace NetProxy
 
             var method = context.Request.Method;
 
-            var matcher = this.actionDescriptorCollectionProvider.GetPosibleActionMatchersFor(path, method);
+            var matcher = this.actionDescriptorCollectionProvider.GetPossibleActionMatchersFor(path, method);
 
             return this.actionSelector.HasMatcherController(matcher);
         }

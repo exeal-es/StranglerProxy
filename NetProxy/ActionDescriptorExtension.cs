@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Abstractions;
@@ -8,32 +9,35 @@ using Microsoft.AspNetCore.Routing.Template;
 
 namespace NetProxy
 {
-    public static class ActionDescriptorExtension
+    internal static class ActionDescriptorExtension
     {
-        public static MatchigDescriptor GetPosibleActionMatchersFor(this IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, string path, string httpMethod)
+        public static MatchingDescriptor GetPossibleActionMatchersFor(this IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, string requestPath, string httpMethod)
         {
-            var matchingDescriptors = actionDescriptorCollectionProvider
-                                          .ActionDescriptors
-                                          .Items
-                                          .Where(actionDescriptor => HasMatcherController(actionDescriptor.AttributeRouteInfo.Template, path))
-                                          .ToList();
+            var actionDescriptors = actionDescriptorCollectionProvider.GetMatchersDescriptorsFor(requestPath);
 
             var httpContext = new DefaultHttpContext();
 
-            httpContext.Request.Path = path;
+            httpContext.Request.Path = requestPath;
 
             httpContext.Request.Method = httpMethod;
 
             var routeContext = new RouteContext(httpContext);
 
-            return new MatchigDescriptor(matchingDescriptors, routeContext);
+            return new MatchingDescriptor(routeContext, actionDescriptors);
         }
 
-        public static bool HasMatcherController(this IActionSelector actionSelector, MatchigDescriptor matchigDescriptor)
+        public static bool HasMatcherController(this IActionSelector actionSelector, MatchingDescriptor matchingDescriptor)
         {
-            var actionMatch = actionSelector.SelectBestCandidate(matchigDescriptor.RouteContext, matchigDescriptor.MatchingDescriptors.AsReadOnly());
+            var actionMatch = actionSelector.SelectBestCandidate(matchingDescriptor.RouteContext, matchingDescriptor.ActionDescriptors);
 
             return actionMatch != null;
+        }
+
+        private static IEnumerable<ActionDescriptor> GetMatchersDescriptorsFor(this IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, string requestPath)
+        {
+            return actionDescriptorCollectionProvider.ActionDescriptors
+                                                     .Items
+                                                     .Where(actionDescriptor => HasMatcherController(actionDescriptor.AttributeRouteInfo.Template, requestPath));
         }
 
         private static bool HasMatcherController(string routeTemplate, string requestPath)
@@ -62,18 +66,18 @@ namespace NetProxy
             return result;
         }
 
-        public class MatchigDescriptor
+        internal class MatchingDescriptor
         {
-            internal MatchigDescriptor(List<ActionDescriptor> matchingDescriptors, RouteContext routeContext)
+            internal MatchingDescriptor(RouteContext routeContext, IEnumerable<ActionDescriptor> matchingDescriptors)
             {
-                this.MatchingDescriptors = matchingDescriptors;
-
                 this.RouteContext = routeContext;
+
+                this.ActionDescriptors = matchingDescriptors.ToList().AsReadOnly();
             }
 
             public RouteContext RouteContext { get; }
 
-            public List<ActionDescriptor> MatchingDescriptors { get; }
+            public ReadOnlyCollection<ActionDescriptor> ActionDescriptors { get; }
         }
     }
 }
