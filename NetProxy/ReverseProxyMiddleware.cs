@@ -31,21 +31,21 @@ namespace NetProxy
 
             this.actionSelector = actionSelector;
 
-            this.httpclient = new HttpClient();
+            httpclient = new HttpClient();
 
-            this.destinationURL = configuration["ReverseProxy:DestinationURL"];
+            destinationURL = configuration["ReverseProxy:DestinationURL"];
 
-            this.ValidateDestinationURL(this.destinationURL);
+            ValidateDestinationURL(destinationURL);
         }
 
         public Task Invoke(HttpContext context)
         {
-            if (!this.HasMatcherController(context))
+            if (!HasMatcherController(context))
             {
-                return this.Fordward(context);
+                return Fordward(context);
             }
 
-            return this.next.Invoke(context);
+            return next.Invoke(context);
         }
 
         private bool HasMatcherController(HttpContext context)
@@ -54,20 +54,20 @@ namespace NetProxy
 
             var method = context.Request.Method;
 
-            var matcher = this.actionDescriptorCollectionProvider.GetPossibleActionMatchersFor(path, method);
+            var matcher = actionDescriptorCollectionProvider.GetPossibleActionMatchersFor(path, method);
 
-            return this.actionSelector.HasMatcherController(matcher);
+            return actionSelector.HasMatcherController(matcher);
         }
 
         private async Task Fordward(HttpContext context)
         {
             var url = context.Request.Path.ToUriComponent();
 
-            var uri = new Uri($"{this.destinationURL}{url}");
+            var uri = new Uri($"{destinationURL}{url}");
 
             var request = context.CloneRequestFor(uri);
 
-            var remoteResponse = await this.httpclient.SendAsync(request);
+            var remoteResponse = await httpclient.SendAsync(request);
 
             var actualResponse = context.Response;
 

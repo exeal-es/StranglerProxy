@@ -76,9 +76,9 @@ namespace NetProxy
         {
             internal MatchingDescriptor(RouteContext routeContext, IEnumerable<ActionDescriptor> matchingDescriptors)
             {
-                this.RouteContext = routeContext;
+                RouteContext = routeContext;
 
-                this.ActionDescriptors = matchingDescriptors.ToList().AsReadOnly();
+                ActionDescriptors = matchingDescriptors.ToList().AsReadOnly();
             }
 
             public RouteContext RouteContext { get; }

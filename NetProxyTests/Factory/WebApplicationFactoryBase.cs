@@ -17,11 +17,11 @@ namespace NetProxyTests
 
         public WebApplicationFactoryBase(string url)
         {
-            this.DestinationURLAddress = url;
+            DestinationURLAddress = url;
 
-            this.ClientOptions.BaseAddress = new Uri(this.DestinationURLAddress);
+            ClientOptions.BaseAddress = new Uri(DestinationURLAddress);
 
-            this.CreateServer(this.CreateWebHostBuilder());
+            CreateServer(CreateWebHostBuilder());
         }
 
         protected override TestServer CreateServer(IWebHostBuilder builder)
@@ -31,7 +31,7 @@ namespace NetProxyTests
             host.Start();
 
 
-            return new TestServer(this.CreateWebHostBuilder());
+            return new TestServer(CreateWebHostBuilder());
         }
 
         protected override IWebHostBuilder CreateWebHostBuilder()
@@ -45,7 +45,7 @@ namespace NetProxyTests
                     config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                 });
 
-            builder.UseStartup<TStartup>().UseUrls(this.DestinationURLAddress);
+            builder.UseStartup<TStartup>().UseUrls(DestinationURLAddress);
 
             return builder;
         }

@@ -10,7 +10,7 @@ namespace NetProxy
         {
             var actualRequest = context.Request;
 
-            var remoteRequest = new HttpRequestMessage()
+            var remoteRequest = new HttpRequestMessage
             {
                 Method = new HttpMethod(actualRequest.Method),
                 Content = new StreamContent(actualRequest.Body),
