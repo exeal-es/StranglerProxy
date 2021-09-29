@@ -9,13 +9,9 @@ namespace NetProxyTests
     {
         private readonly ProxyApiFactory proxyApiFactory;
 
-        private readonly DestinationApiFactory destinationApiFactory;
-
-        public NetProxyTest(ProxyApiFactory proxyApiFactory, DestinationApiFactory destinationApiFactory)
+        public NetProxyTest(ProxyApiFactory proxyApiFactory)
         {
             this.proxyApiFactory = proxyApiFactory;
-
-            this.destinationApiFactory = destinationApiFactory;
         }
 
         [Fact]
