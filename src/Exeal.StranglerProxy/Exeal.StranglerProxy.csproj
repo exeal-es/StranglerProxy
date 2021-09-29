@@ -1,10 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Exeal.StranglerProxy</AssemblyName>
     <RootNamespace>Exeal.StranglerProxy</RootNamespace>
     <Version>0.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>https://github.com/exeal-es/StranglerProxy/blob/main/LICENSE</Copyright>
+    <PackageProjectUrl>https://github.com/exeal-es/StranglerProxy</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/exeal-es/StranglerProxy</RepositoryUrl>
+    <Description>Middleware to implement Strangler fig pattern in your .NET Core application.</Description>
+    <Title>Strangler Proxy</Title>
+    <PackageLicenseExpression></PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
