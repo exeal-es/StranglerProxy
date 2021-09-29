@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using ProxyApi;
 
-namespace DestinationApi
+namespace Exeal.StranglerProxy.Tests.ProxyApi
 {
     public class Program
     {

@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DestinationApi\DestinationApi.csproj" />
-    <ProjectReference Include="..\ProxyApi\ProxyApi.csproj" />
+    <ProjectReference Include="..\Exeal.StranglerProxy.Tests.DestinationApi\Exeal.StranglerProxy.Tests.DestinationApi.csproj" />
+    <ProjectReference Include="..\Exeal.StranglerProxy.Tests.ProxyApi\Exeal.StranglerProxy.Tests.ProxyApi.csproj" />
   </ItemGroup>
 
 </Project>

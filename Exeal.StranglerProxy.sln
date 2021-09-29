@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProxyApi", "ProxyApi\ProxyApi.csproj", "{97CC95D8-CAC7-42FD-B44E-3673D361B903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProxyApi", "tests\Exeal.StranglerProxy.Tests.ProxyApi\Exeal.StranglerProxy.Tests.ProxyApi.csproj", "{97CC95D8-CAC7-42FD-B44E-3673D361B903}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DestinationApi", "DestinationApi\DestinationApi.csproj", "{6B63442D-43A8-455A-BE93-356DD12EA597}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DestinationApi", "tests\Exeal.StranglerProxy.Tests.DestinationApi\Exeal.StranglerProxy.Tests.DestinationApi.csproj", "{6B63442D-43A8-455A-BE93-356DD12EA597}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StranglerProxyTests", "StranglerProxyTests\StranglerProxyTests.csproj", "{A4839666-9DDA-49BD-90C7-FE021622AB24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StranglerProxy.Tests", "tests\Exeal.StranglerProxy.Tests\Exeal.StranglerProxy.Tests.csproj", "{A4839666-9DDA-49BD-90C7-FE021622AB24}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StranglerProxy", "StranglerProxy\StranglerProxy.csproj", "{D107ACFE-66D5-4259-964F-C9AF5C7E103C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StranglerProxy", "src\Exeal.StranglerProxy\Exeal.StranglerProxy.csproj", "{D107ACFE-66D5-4259-964F-C9AF5C7E103C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apis", "Apis", "{D568E487-AA4E-4574-824B-7D5DCEE6E332}"
 EndProject

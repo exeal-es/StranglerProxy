@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>StranglerProxy</AssemblyName>
-    <RootNamespace>StranglerProxy</RootNamespace>
+    <AssemblyName>Exeal.StranglerProxy</AssemblyName>
+    <RootNamespace>Exeal.StranglerProxy</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

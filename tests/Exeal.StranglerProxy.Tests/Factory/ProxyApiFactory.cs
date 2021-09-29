@@ -1,6 +1,7 @@
-﻿using ProxyApi;
+﻿using Exeal.StranglerProxy.Tests.ProxyApi;
+using ProxyApi;
 
-namespace StranglerProxyTests
+namespace Exeal.StranglerProxy.Tests.Factory
 {
     public class ProxyApiFactory : WebApplicationFactoryBase<Startup>
     {

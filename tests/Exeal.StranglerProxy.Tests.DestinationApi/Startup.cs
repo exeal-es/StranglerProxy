@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using StranglerProxy;
 
-namespace ProxyApi
+namespace Exeal.StranglerProxy.Tests.DestinationApi
 {
     public class Startup
     {
@@ -35,8 +34,6 @@ namespace ProxyApi
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseStranglerProxyMiddleware();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

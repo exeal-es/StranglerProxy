@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace DestinationApi
+namespace Exeal.StranglerProxy.Tests.ProxyApi
 {
     public class Startup
     {
@@ -34,6 +34,8 @@ namespace DestinationApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseStranglerProxyMiddleware();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

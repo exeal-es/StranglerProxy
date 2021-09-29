@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace StranglerProxy
+namespace Exeal.StranglerProxy
 {
     public static class StranglerProxyMiddlewareExtensions
     {

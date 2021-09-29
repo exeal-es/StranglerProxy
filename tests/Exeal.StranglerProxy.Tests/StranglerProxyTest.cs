@@ -1,10 +1,11 @@
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Exeal.StranglerProxy.Tests.Factory;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace StranglerProxyTests
+namespace Exeal.StranglerProxy.Tests
 {
     public class StranglerProxyTest : IClassFixture<ProxyApiFactory>, IClassFixture<DestinationApiFactory>
     {

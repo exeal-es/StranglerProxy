@@ -1,6 +1,7 @@
 ﻿using DestinationApi;
+using Exeal.StranglerProxy.Tests.DestinationApi;
 
-namespace StranglerProxyTests
+namespace Exeal.StranglerProxy.Tests.Factory
 {
     public class DestinationApiFactory : WebApplicationFactoryBase<Startup>
     {

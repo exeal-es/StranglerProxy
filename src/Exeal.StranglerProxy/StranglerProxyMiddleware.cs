@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 
-namespace StranglerProxy
+namespace Exeal.StranglerProxy
 {
     internal class StranglerProxyMiddleware
     {

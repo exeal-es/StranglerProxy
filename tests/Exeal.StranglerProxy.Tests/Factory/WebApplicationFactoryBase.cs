@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 
-namespace StranglerProxyTests
+namespace Exeal.StranglerProxy.Tests.Factory
 {
     public class WebApplicationFactoryBase<TStartup> : WebApplicationFactory<TStartup>
         where TStartup : class
