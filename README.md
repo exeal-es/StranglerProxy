@@ -18,7 +18,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 }
 ```
 
-And also you need to add destination proxy url in your proxy api appsettings.json like this:
+And also you need to add destination proxy url in your proxy api `appsettings.json` like this:
 
 ```
 "StranglerProxy": {
@@ -33,3 +33,13 @@ And also you need to add destination proxy url in your proxy api appsettings.jso
 ## :balance_scale: License
 
 MIT
+
+## Maintainers
+
+* [Exeal Solutions S.L.](https://www.exeal.com)
+
+See also the list of [contributors](https://github.com/exeal-es/StranglerProxy/contributors) who participated in this project.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/exeal-es/StranglerProxy/tags).
