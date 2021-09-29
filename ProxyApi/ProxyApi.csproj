@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetProxy\NetProxy.csproj" />
+    <ProjectReference Include="..\StranglerProxy\StranglerProxy.csproj" />
   </ItemGroup>
 
 

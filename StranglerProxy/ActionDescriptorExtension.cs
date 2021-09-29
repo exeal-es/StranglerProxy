@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Routing.Template;
 
-namespace NetProxy
+namespace StranglerProxy
 {
     internal static class ActionDescriptorExtension
     {

@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 
-namespace NetProxy
+namespace StranglerProxy
 {
-    internal class ReverseProxyMiddleware
+    internal class StranglerProxyMiddleware
     {
         private readonly RequestDelegate next;
 
@@ -20,7 +20,7 @@ namespace NetProxy
 
         private readonly String destinationURL;
 
-        public ReverseProxyMiddleware(RequestDelegate next,
+        public StranglerProxyMiddleware(RequestDelegate next,
             IActionDescriptorCollectionProvider actionDescriptorCollectionProvider,
             IActionSelector actionSelector,
             IConfiguration configuration)
@@ -33,7 +33,7 @@ namespace NetProxy
 
             httpclient = new HttpClient();
 
-            destinationURL = configuration["ReverseProxy:DestinationURL"];
+            destinationURL = configuration["StranglerProxy:DestinationURL"];
 
             ValidateDestinationURL(destinationURL);
         }
@@ -51,7 +51,6 @@ namespace NetProxy
         private bool HasMatcherController(HttpContext context)
         {
             var path = context.Request.Path.Value;
-
             var method = context.Request.Method;
 
             var matcher = actionDescriptorCollectionProvider.GetPossibleActionMatchersFor(path, method);
@@ -77,7 +76,6 @@ namespace NetProxy
             }
 
             actualResponse.ContentType = remoteResponse.Content.Headers.ContentType?.ToString();
-
             actualResponse.ContentLength = remoteResponse.Content.Headers.ContentLength;
 
             await remoteResponse.Content.CopyToAsync(actualResponse.Body);
@@ -88,7 +86,7 @@ namespace NetProxy
             if (!Uri.IsWellFormedUriString(destinationURL, UriKind.Absolute))
                 throw new Exception("Please check the destination URL in your appsettings. " +
                                     "If you don't added yet, please add this following lines:" +
-                                    "'ReverseProxy': { 'DestinationURL': 'https://localhost:44322/' }");
+                                    "'StranglerProxy': { 'DestinationURL': 'https://localhost:44322/' }");
         }
     }
 }

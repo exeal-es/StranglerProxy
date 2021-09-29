@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace NetProxyTests
+namespace StranglerProxyTests
 {
-    public class NetProxyTest : IClassFixture<ProxyApiFactory>, IClassFixture<DestinationApiFactory>
+    public class StranglerProxyTest : IClassFixture<ProxyApiFactory>, IClassFixture<DestinationApiFactory>
     {
         private readonly ProxyApiFactory proxyApiFactory;
 
-        public NetProxyTest(ProxyApiFactory proxyApiFactory)
+        public StranglerProxyTest(ProxyApiFactory proxyApiFactory)
         {
             this.proxyApiFactory = proxyApiFactory;
         }

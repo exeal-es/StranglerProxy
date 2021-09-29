@@ -1,6 +1,6 @@
 ﻿using ProxyApi;
 
-namespace NetProxyTests
+namespace StranglerProxyTests
 {
     public class ProxyApiFactory : WebApplicationFactoryBase<Startup>
     {

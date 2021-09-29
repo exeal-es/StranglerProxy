@@ -2,7 +2,7 @@
 using System.Net.Http;
 using Microsoft.AspNetCore.Http;
 
-namespace NetProxy
+namespace StranglerProxy
 {
     internal static class HttpContextExtension
     {

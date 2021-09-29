@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NetProxy;
+using StranglerProxy;
 
 namespace ProxyApi
 {
@@ -36,7 +36,7 @@ namespace ProxyApi
 
             app.UseAuthorization();
 
-            app.UseReverseProxyMiddleware();
+            app.UseStranglerProxyMiddleware();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
