@@ -5,6 +5,9 @@
 
 Net Core proxy middleware to support [Strangler fig pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/strangler-fig)
 
+## :zap: How does it works?
+![Strangler Fig pattern](https://user-images.githubusercontent.com/7398909/135249643-72326d56-efa4-4d24-8afa-4882380fd41f.jpg)
+
 ## :pencil: Usage
 
 First, you must add the strangler proxy middleware in your `Startup.cs`.
