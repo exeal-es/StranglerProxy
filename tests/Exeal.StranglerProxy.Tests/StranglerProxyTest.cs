@@ -1,4 +1,5 @@
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Exeal.StranglerProxy.Tests.Factory;
@@ -72,7 +73,7 @@ namespace Exeal.StranglerProxy.Tests
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
-            var content = new StringContent(JsonConvert.SerializeObject(new {Body = "Hi"}), Encoding.UTF8,
+            var content = new StringContent(JsonConvert.SerializeObject(new { Body = "Hi" }), Encoding.UTF8,
                 "application/json");
 
             // Act
@@ -92,7 +93,7 @@ namespace Exeal.StranglerProxy.Tests
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
-            var content = new StringContent(JsonConvert.SerializeObject(new {Body = "Hi"}), Encoding.UTF8,
+            var content = new StringContent(JsonConvert.SerializeObject(new { Body = "Hi" }), Encoding.UTF8,
                 "application/json");
 
             // Act
@@ -112,7 +113,7 @@ namespace Exeal.StranglerProxy.Tests
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
-            var content = new StringContent(JsonConvert.SerializeObject(new {Body = "Hi"}), Encoding.UTF8,
+            var content = new StringContent(JsonConvert.SerializeObject(new { Body = "Hi" }), Encoding.UTF8,
                 "application/json");
 
             // Act
@@ -131,7 +132,7 @@ namespace Exeal.StranglerProxy.Tests
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
-            var content = new StringContent(JsonConvert.SerializeObject(new {Body = "Hi"}), Encoding.UTF8,
+            var content = new StringContent(JsonConvert.SerializeObject(new { Body = "Hi" }), Encoding.UTF8,
                 "application/json");
 
             // Act
@@ -177,6 +178,24 @@ namespace Exeal.StranglerProxy.Tests
             var body = await response.Content.ReadAsStringAsync();
 
             Assert.Equal("{\"overrideController\":true,\"argument\":\"90\"}", body);
+        }
+
+        [Fact]
+        public async Task GetAuthorizationHeader()
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "Your Oauth token");
+
+            // Act
+            var response = await client.GetAsync("test9");
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"destinationController\":true,\"authorization\":[\"Bearer Your Oauth token\"]}", body);
         }
     }
 }

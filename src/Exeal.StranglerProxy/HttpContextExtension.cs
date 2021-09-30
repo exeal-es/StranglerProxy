@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
 
 namespace Exeal.StranglerProxy
 {
     internal static class HttpContextExtension
     {
+        private static string AuthorizationKey = "Authorization";
+
         public static HttpRequestMessage CloneRequestFor(this HttpContext context, Uri targetUri)
         {
             var actualRequest = context.Request;
@@ -23,6 +27,9 @@ namespace Exeal.StranglerProxy
             }
 
             remoteRequest.Headers.Host = targetUri.Host;
+
+            if (actualRequest.Headers.Keys.Any(key => key == AuthorizationKey))
+                remoteRequest.Headers.Authorization = AuthenticationHeaderValue.Parse(actualRequest.Headers[AuthorizationKey]);
 
             return remoteRequest;
         }
