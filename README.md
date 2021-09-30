@@ -1,5 +1,7 @@
 ﻿## Exeal.StranglerProxy
- 
+
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+[![NuGet version](https://img.shields.io/nuget/v/Exeal.StranglerProxy.svg)](https://www.nuget.org/packages/Exeal.StranglerProxy)
 [![CircleCI](https://circleci.com/gh/exeal-es/StranglerProxy/tree/main.svg?style=svg&circle-token=9434f71d7bf6f2a7d8d87516ce6c8ba3de6a7859)](https://circleci.com/gh/exeal-es/StranglerProxy/tree/main)
 [![CodeFactor](https://www.codefactor.io/repository/github/exeal-es/stranglerproxy/badge?s=e7bc88343e337a93bb31f0823cf4c3721de6ae6b)](https://www.codefactor.io/repository/github/exeal-es/stranglerproxy)
 
