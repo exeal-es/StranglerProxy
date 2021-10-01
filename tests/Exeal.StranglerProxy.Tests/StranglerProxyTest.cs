@@ -1,9 +1,11 @@
+using Exeal.StranglerProxy.Tests.Factory;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Exeal.StranglerProxy.Tests.Factory;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace Exeal.StranglerProxy.Tests
@@ -230,6 +232,43 @@ namespace Exeal.StranglerProxy.Tests
             var body = await response.Content.ReadAsStringAsync();
 
             Assert.Equal("{\"destinationController\":true,\"header\":[\"audio/basic\"]}", body);
+        }
+
+        [Theory]
+        [MemberData(nameof(SpecialHeadersTestCases))]
+        public async Task GetHeader(Action<HttpClient> configHeader, string endPoint, string expectedResponse)
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+            configHeader(client);
+
+            // Act
+            var response = await client.GetAsync(endPoint);
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal(expectedResponse, body);
+        }
+
+        public static IEnumerable<object[]> SpecialHeadersTestCases()
+        {
+            yield return new object[]
+            {
+                (Action<HttpClient>)((client) => client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("audio/basic"))),
+                "headers/Accept",
+                "{\"destinationController\":true,\"header\":[\"audio/basic\"]}"
+            };
+
+            yield return new object[]
+            {
+                (Action<HttpClient>)((client) => client.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue("andalu"))),
+                "headers/Accept-Language",
+                "{\"destinationController\":true,\"header\":[\"andalu\"]}"
+            };
+
         }
     }
 }
