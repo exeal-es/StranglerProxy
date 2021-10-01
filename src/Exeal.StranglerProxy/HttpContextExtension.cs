@@ -19,6 +19,15 @@ namespace Exeal.StranglerProxy
                 RequestUri = targetUri,
             };
 
+            CloneHeaders(actualRequest, remoteRequest);
+
+            remoteRequest.Headers.Host = targetUri.Host;
+
+            return remoteRequest;
+        }
+
+        private static void CloneHeaders(HttpRequest actualRequest, HttpRequestMessage remoteRequest)
+        {
             foreach (var header in actualRequest.Headers)
             {
                 var headerName = header.Key;
@@ -27,10 +36,6 @@ namespace Exeal.StranglerProxy
                 if (!remoteRequest.Headers.TryAddWithoutValidation(headerName, headerValue))
                     remoteRequest.Content?.Headers.TryAddWithoutValidation(headerName, headerValue);
             }
-
-            remoteRequest.Headers.Host = targetUri.Host;
-
-            return remoteRequest;
         }
     }
 }
