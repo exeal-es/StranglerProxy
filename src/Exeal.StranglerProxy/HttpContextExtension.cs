@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace Exeal.StranglerProxy
 {
@@ -31,9 +29,6 @@ namespace Exeal.StranglerProxy
             }
 
             remoteRequest.Headers.Host = targetUri.Host;
-
-            if (actualRequest.Headers.Keys.Any(key => key == AuthorizationKey))
-                remoteRequest.Headers.Authorization = AuthenticationHeaderValue.Parse(actualRequest.Headers[AuthorizationKey]);
 
             return remoteRequest;
         }
