@@ -200,40 +200,6 @@ namespace Exeal.StranglerProxy.Tests
             Assert.Equal("{\"destinationController\":true,\"authorization\":[\"Bearer Your Oauth token\"]}", body);
         }
 
-        [Fact]
-        public async Task GetAcceptLanguageHeader()
-        {
-            // Arrange
-            var client = proxyApiFactory.CreateClient();
-            client.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue("andalu"));
-            // Act
-            var response = await client.GetAsync("headers/Accept-Language");
-
-            // Assert
-            response.EnsureSuccessStatusCode();
-
-            var body = await response.Content.ReadAsStringAsync();
-
-            Assert.Equal("{\"destinationController\":true,\"header\":[\"andalu\"]}", body);
-        }
-
-        [Fact]
-        public async Task GetAcceptHeader()
-        {
-            // Arrange
-            var client = proxyApiFactory.CreateClient();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("audio/basic"));
-            // Act
-            var response = await client.GetAsync("headers/Accept");
-
-            // Assert
-            response.EnsureSuccessStatusCode();
-
-            var body = await response.Content.ReadAsStringAsync();
-
-            Assert.Equal("{\"destinationController\":true,\"header\":[\"audio/basic\"]}", body);
-        }
-
         [Theory]
         [MemberData(nameof(SpecialHeadersTestCases))]
         public async Task GetHeader(Action<HttpClient> configHeader, string endPoint, string expectedResponse)
@@ -268,7 +234,6 @@ namespace Exeal.StranglerProxy.Tests
                 "headers/Accept-Language",
                 "{\"destinationController\":true,\"header\":[\"andalu\"]}"
             };
-
         }
     }
 }
