@@ -197,5 +197,22 @@ namespace Exeal.StranglerProxy.Tests
 
             Assert.Equal("{\"destinationController\":true,\"authorization\":[\"Bearer Your Oauth token\"]}", body);
         }
+
+        [Fact]
+        public async Task GetAcceptLanguageHeader()
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+            client.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue("andalu"));
+            // Act
+            var response = await client.GetAsync("AcceptLanguage");
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"destinationController\":true,\"acceptLanguage\":[\"andalu\"]}", body);
+        }
     }
 }
