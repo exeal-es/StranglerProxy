@@ -205,14 +205,14 @@ namespace Exeal.StranglerProxy.Tests
             var client = proxyApiFactory.CreateClient();
             client.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue("andalu"));
             // Act
-            var response = await client.GetAsync("AcceptLanguage");
+            var response = await client.GetAsync("headers/Accept-Language");
 
             // Assert
             response.EnsureSuccessStatusCode();
 
             var body = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal("{\"destinationController\":true,\"acceptLanguage\":[\"andalu\"]}", body);
+            Assert.Equal("{\"destinationController\":true,\"header\":[\"andalu\"]}", body);
         }
 
         [Fact]
@@ -222,14 +222,14 @@ namespace Exeal.StranglerProxy.Tests
             var client = proxyApiFactory.CreateClient();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("audio/basic"));
             // Act
-            var response = await client.GetAsync("accept");
+            var response = await client.GetAsync("headers/Accept");
 
             // Assert
             response.EnsureSuccessStatusCode();
 
             var body = await response.Content.ReadAsStringAsync();
 
-            Assert.Equal("{\"destinationController\":true,\"accept\":[\"audio/basic\"]}", body);
+            Assert.Equal("{\"destinationController\":true,\"header\":[\"audio/basic\"]}", body);
         }
     }
 }

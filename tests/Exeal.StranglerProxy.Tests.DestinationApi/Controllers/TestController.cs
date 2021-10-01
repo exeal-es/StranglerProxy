@@ -62,14 +62,14 @@ namespace DestinationApi.Controllers
             });
         }
 
-        [Route("accept")]
+        [Route("headers/{headerKey}")]
         [HttpGet]
-        public IActionResult ReadAccept()
+        public IActionResult ReadHeader(string headerKey)
         {
             return base.Ok(new
             {
                 DestinationController = true,
-                Accept = this.Request.Headers["accept"]
+                header = this.Request.Headers[headerKey]
             });
         }
     }
