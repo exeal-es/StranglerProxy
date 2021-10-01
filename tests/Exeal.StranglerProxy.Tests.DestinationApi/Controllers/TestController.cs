@@ -61,5 +61,16 @@ namespace DestinationApi.Controllers
                 AcceptLanguage = this.Request.Headers["Accept-Language"]
             });
         }
+
+        [Route("accept")]
+        [HttpGet]
+        public IActionResult ReadAccept()
+        {
+            return base.Ok(new
+            {
+                DestinationController = true,
+                Accept = this.Request.Headers["accept"]
+            });
+        }
     }
 }

@@ -214,5 +214,22 @@ namespace Exeal.StranglerProxy.Tests
 
             Assert.Equal("{\"destinationController\":true,\"acceptLanguage\":[\"andalu\"]}", body);
         }
+
+        [Fact]
+        public async Task GetAcceptHeader()
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("audio/basic"));
+            // Act
+            var response = await client.GetAsync("accept");
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"destinationController\":true,\"accept\":[\"audio/basic\"]}", body);
+        }
     }
 }
