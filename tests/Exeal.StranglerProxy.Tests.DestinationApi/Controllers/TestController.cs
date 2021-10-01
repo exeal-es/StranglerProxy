@@ -51,17 +51,6 @@ namespace DestinationApi.Controllers
             });
         }
 
-        [Route("AcceptLanguage")]
-        [HttpGet]
-        public IActionResult ReadAcceptLanguage()
-        {
-            return base.Ok(new
-            {
-                DestinationController = true,
-                AcceptLanguage = this.Request.Headers["Accept-Language"]
-            });
-        }
-
         [Route("headers/{headerKey}")]
         [HttpGet]
         public IActionResult ReadHeader(string headerKey)
