@@ -6,8 +6,6 @@ namespace Exeal.StranglerProxy
 {
     internal static class HttpContextExtension
     {
-        private static string AuthorizationKey = "Authorization";
-
         public static HttpRequestMessage CloneRequestFor(this HttpContext context, Uri targetUri)
         {
             var actualRequest = context.Request;
