@@ -197,5 +197,22 @@ namespace Exeal.StranglerProxy.Tests
 
             Assert.Equal("{\"destinationController\":true,\"authorization\":[\"Bearer Your Oauth token\"]}", body);
         }
+
+        [Fact]
+        public async Task GetDestinationWithQueryString()
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("test10?aQueryString=12");
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"destinationController\":true,\"queryString\":\"?aQueryString=12\"}", body);
+        }
     }
 }

@@ -50,5 +50,17 @@ namespace DestinationApi.Controllers
                 Authorization = this.Request.Headers["Authorization"]
             });
         }
+
+
+        [Route("test10")]
+        [HttpGet]
+        public IActionResult Test10()
+        {
+            return Ok(new
+            {
+                DestinationController = true,
+                QueryString = this.Request.QueryString.Value
+            });
+        }
     }
 }

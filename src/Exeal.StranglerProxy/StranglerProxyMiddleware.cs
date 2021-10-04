@@ -61,8 +61,9 @@ namespace Exeal.StranglerProxy
         private async Task Forward(HttpContext context)
         {
             var url = context.Request.Path.ToUriComponent();
+            var queryString = context.Request.QueryString.ToUriComponent();
 
-            var uri = new Uri($"{destinationURL}{url}");
+            var uri = new Uri($"{destinationURL}{url}{queryString}");
 
             var request = context.CloneRequestFor(uri);
 
