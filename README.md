@@ -8,7 +8,7 @@
 Net Core proxy middleware to support [Strangler fig pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/strangler-fig)
 
 ## :zap: How does it works?
-![Strangler Fig pattern](https://user-images.githubusercontent.com/7398909/135249643-72326d56-efa4-4d24-8afa-4882380fd41f.jpg)
+![strangler-fig-proxy](https://user-images.githubusercontent.com/7398909/135844331-887d3fc1-cd15-44f0-9b26-8fa666a01192.jpg)
 
 ## :pencil: Usage
 
