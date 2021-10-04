@@ -1,0 +1,1 @@
+dotnet pack .\src\Exeal.StranglerProxy\ -c Release /p:GeneratePackageOnBuild=false -o ./packages
