@@ -51,7 +51,6 @@ namespace DestinationApi.Controllers
             });
         }
 
-
         [Route("test10")]
         [HttpGet]
         public IActionResult Test10()
@@ -60,6 +59,17 @@ namespace DestinationApi.Controllers
             {
                 DestinationController = true,
                 QueryString = this.Request.QueryString.Value
+            });
+        }
+
+        [Route("test11")]
+        [HttpGet]
+        public IActionResult Test11()
+        {
+            return Ok(new
+            {
+                DestinationController = true,
+                CustomHeader = this.Request.Headers["CustomHeader"]
             });
         }
     }

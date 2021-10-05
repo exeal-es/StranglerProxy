@@ -214,5 +214,23 @@ namespace Exeal.StranglerProxy.Tests
 
             Assert.Equal("{\"destinationController\":true,\"queryString\":\"?aQueryString=12\"}", body);
         }
+
+        [Fact]
+        public async Task GetDestinatinationCustomHeader()
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+            client.DefaultRequestHeaders.Add("CustomHeader", "20");
+
+            // Act
+            var response = await client.GetAsync("test11");
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"destinationController\":true,\"customHeader\":[\"20\"]}", body);
+        }
     }
 }
