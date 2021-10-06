@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mime;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
@@ -28,8 +29,8 @@ namespace Exeal.StranglerProxy
                 if (!String.IsNullOrEmpty(actualContent))
                 {
                     var contentType = new ContentType(actualRequest.ContentType);
-
                     remoteRequest.Content = new StringContent(actualContent, bodyReader.CurrentEncoding, contentType.MediaType);
+                    remoteRequest.Content.Headers.ContentType = new MediaTypeHeaderValue( contentType.MediaType);
                 }
 
                 foreach (var header in actualRequest.Headers)
@@ -37,7 +38,7 @@ namespace Exeal.StranglerProxy
                     var headerName = header.Key;
                     var headerValue = header.Value.ToArray();
 
-                    if (!remoteRequest.Headers.TryAddWithoutValidation(headerName, headerValue))
+                    if (!headerName.Equals("content-type", StringComparison.OrdinalIgnoreCase) && !remoteRequest.Headers.TryAddWithoutValidation(headerName, headerValue))
                         remoteRequest.Content?.Headers.TryAddWithoutValidation(headerName, headerValue);
                 }
 
