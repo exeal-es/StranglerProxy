@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mime;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
@@ -23,29 +24,38 @@ namespace Exeal.StranglerProxy
                     RequestUri = targetUri,
                 };
 
-                var actualContent = bodyReader.ReadToEnd();
+                CloneRequestContent(bodyReader, actualRequest, remoteRequest);
 
-                if (!String.IsNullOrEmpty(actualContent))
-                {
-                    var contentType = new ContentType(actualRequest.ContentType);
-
-                    remoteRequest.Content = new StringContent(actualContent, bodyReader.CurrentEncoding, contentType.MediaType);
-                }
-
-                foreach (var header in actualRequest.Headers)
-                {
-                    var headerName = header.Key;
-                    var headerValue = header.Value.ToArray();
-
-                    if (!remoteRequest.Headers.TryAddWithoutValidation(headerName, headerValue))
-                        remoteRequest.Content?.Headers.TryAddWithoutValidation(headerName, headerValue);
-                }
+                CloneRequestHeaders(actualRequest, remoteRequest);
 
                 remoteRequest.Headers.Host = targetUri.Host;
 
                 return remoteRequest;
             }
+        }
 
+        private static void CloneRequestContent(StreamReader bodyReader, HttpRequest actualRequest,
+            HttpRequestMessage remoteRequest) {
+            var actualContent = bodyReader.ReadToEnd();
+
+            if (string.IsNullOrEmpty(actualContent)) return;
+            var contentType = new ContentType(actualRequest.ContentType);
+            remoteRequest.Content = new StringContent(actualContent, bodyReader.CurrentEncoding, contentType.MediaType);
+            remoteRequest.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType.MediaType);
+        }
+
+        private static void CloneRequestHeaders(HttpRequest actualRequest, HttpRequestMessage remoteRequest) {
+            foreach (var (headerName, value) in actualRequest.Headers) {
+                TryAddHeader(remoteRequest, headerName, value.ToArray());
+            }
+        }
+
+        private static void TryAddHeader(HttpRequestMessage remoteRequest, string headerName, string[] headerValue) {
+            var isContentTypeHeader = headerName.Equals("content-type", StringComparison.OrdinalIgnoreCase);
+            if(isContentTypeHeader) return;
+
+            if (!remoteRequest.Headers.TryAddWithoutValidation(headerName, headerValue))
+                remoteRequest.Content?.Headers.TryAddWithoutValidation(headerName, headerValue);
         }
     }
 }
