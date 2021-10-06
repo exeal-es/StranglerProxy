@@ -32,7 +32,6 @@ namespace Exeal.StranglerProxy
 
                 return remoteRequest;
             }
-
         }
 
         private static void CloneRequestContent(StreamReader bodyReader, HttpRequest actualRequest,
@@ -46,11 +45,8 @@ namespace Exeal.StranglerProxy
         }
 
         private static void CloneRequestHeaders(HttpRequest actualRequest, HttpRequestMessage remoteRequest) {
-            foreach (var header in actualRequest.Headers) {
-                var headerName = header.Key;
-                var headerValue = header.Value.ToArray();
-
-                TryAddHeader(remoteRequest, headerName, headerValue);
+            foreach (var (headerName, value) in actualRequest.Headers) {
+                TryAddHeader(remoteRequest, headerName, value.ToArray());
             }
         }
 
