@@ -39,11 +39,10 @@ namespace Exeal.StranglerProxy
             HttpRequestMessage remoteRequest) {
             var actualContent = bodyReader.ReadToEnd();
 
-            if (!String.IsNullOrEmpty(actualContent)) {
-                var contentType = new ContentType(actualRequest.ContentType);
-                remoteRequest.Content = new StringContent(actualContent, bodyReader.CurrentEncoding, contentType.MediaType);
-                remoteRequest.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType.MediaType);
-            }
+            if (string.IsNullOrEmpty(actualContent)) return;
+            var contentType = new ContentType(actualRequest.ContentType);
+            remoteRequest.Content = new StringContent(actualContent, bodyReader.CurrentEncoding, contentType.MediaType);
+            remoteRequest.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType.MediaType);
         }
 
         private static void CloneRequestHeaders(HttpRequest actualRequest, HttpRequestMessage remoteRequest) {
@@ -51,10 +50,16 @@ namespace Exeal.StranglerProxy
                 var headerName = header.Key;
                 var headerValue = header.Value.ToArray();
 
-                if (!headerName.Equals("content-type", StringComparison.OrdinalIgnoreCase) &&
-                    !remoteRequest.Headers.TryAddWithoutValidation(headerName, headerValue))
-                    remoteRequest.Content?.Headers.TryAddWithoutValidation(headerName, headerValue);
+                TryAddHeader(remoteRequest, headerName, headerValue);
             }
+        }
+
+        private static void TryAddHeader(HttpRequestMessage remoteRequest, string headerName, string[] headerValue) {
+            var isContentTypeHeader = headerName.Equals("content-type", StringComparison.OrdinalIgnoreCase);
+            if(isContentTypeHeader) return;
+
+            if (!remoteRequest.Headers.TryAddWithoutValidation(headerName, headerValue))
+                remoteRequest.Content?.Headers.TryAddWithoutValidation(headerName, headerValue);
         }
     }
 }
