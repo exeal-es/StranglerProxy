@@ -72,5 +72,16 @@ namespace DestinationApi.Controllers
                 CustomHeader = this.Request.Headers["CustomHeader"]
             });
         }
+
+        [Route("test12")]
+        [HttpPost]
+        public IActionResult Test12([FromForm] object someData)
+        {
+            return Ok(new
+            {
+                DestinationController = true,
+                ContentType = this.Request.ContentType
+            });
+        }
     }
 }

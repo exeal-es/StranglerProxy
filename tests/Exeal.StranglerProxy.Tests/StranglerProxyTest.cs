@@ -232,5 +232,25 @@ namespace Exeal.StranglerProxy.Tests
 
             Assert.Equal("{\"destinationController\":true,\"customHeader\":[\"20\"]}", body);
         }
+
+        [Fact]
+        public async Task CloneContentWhenEncodingIsNotSpecified()
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+            var contentWithoutEncoding = new ByteArrayContent(new byte[10]);
+            contentWithoutEncoding.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            // Act
+            
+            var response = await client.PostAsync("test12", contentWithoutEncoding);
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"destinationController\":true,\"contentType\":\"application/json\"}", body);
+        }
     }
 }
