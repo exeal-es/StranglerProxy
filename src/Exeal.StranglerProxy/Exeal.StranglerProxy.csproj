@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Exeal.StranglerProxy</AssemblyName>
     <RootNamespace>Exeal.StranglerProxy</RootNamespace>
-    <Version>0.0.6</Version>
+    <Version>0.0.7</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Copyright>https://github.com/exeal-es/StranglerProxy/blob/main/LICENSE</Copyright>
     <PackageProjectUrl>https://github.com/exeal-es/StranglerProxy</PackageProjectUrl>
