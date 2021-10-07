@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Exeal.StranglerProxy.Tests.ProxyApi\Exeal.StranglerProxy.Tests.ProxyApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>

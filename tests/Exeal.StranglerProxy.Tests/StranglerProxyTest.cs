@@ -242,7 +242,6 @@ namespace Exeal.StranglerProxy.Tests
             contentWithoutEncoding.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             // Act
-            
             var response = await client.PostAsync("test12", contentWithoutEncoding);
 
             // Assert

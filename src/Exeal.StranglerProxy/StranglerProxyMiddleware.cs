@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
@@ -16,8 +15,6 @@ namespace Exeal.StranglerProxy
 
         private readonly IActionSelector actionSelector;
 
-        private readonly HttpClient httpclient;
-
         private readonly String destinationURL;
 
         public StranglerProxyMiddleware(RequestDelegate next,
@@ -30,8 +27,6 @@ namespace Exeal.StranglerProxy
             this.actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
 
             this.actionSelector = actionSelector;
-
-            httpclient = new HttpClient();
 
             destinationURL = configuration["StranglerProxy:DestinationURL"];
 
@@ -58,28 +53,15 @@ namespace Exeal.StranglerProxy
             return actionSelector.HasMatcherController(matcher);
         }
 
-        private async Task Forward(HttpContext context)
+        private Task Forward(HttpContext context)
         {
             var url = context.Request.Path.ToUriComponent();
+
             var queryString = context.Request.QueryString.ToUriComponent();
 
             var uri = new Uri($"{destinationURL}{url}{queryString}");
 
-            var request = context.CloneRequestFor(uri);
-
-            var remoteResponse = await httpclient.SendAsync(request);
-
-            var actualResponse = context.Response;
-
-            foreach (var header in remoteResponse.Headers)
-            {
-                actualResponse.Headers.Add(header.Key, header.Value.ToArray());
-            }
-
-            actualResponse.ContentType = remoteResponse.Content.Headers.ContentType?.ToString();
-            actualResponse.ContentLength = remoteResponse.Content.Headers.ContentLength;
-
-            await remoteResponse.Content.CopyToAsync(actualResponse.Body);
+            return context.ProxyRequest(uri);
         }
 
         private void ValidateDestinationURL(string destinationURL)
