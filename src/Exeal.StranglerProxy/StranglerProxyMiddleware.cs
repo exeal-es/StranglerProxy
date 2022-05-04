@@ -43,12 +43,9 @@ namespace Exeal.StranglerProxy
             return next.Invoke(context);
         }
 
-        private bool HasMatcherController(HttpContext context)
+        private bool HasMatcherController(HttpContext currentContext)
         {
-            var path = context.Request.Path.Value;
-            var method = context.Request.Method;
-
-            var matcher = actionDescriptorCollectionProvider.GetPossibleActionMatchersFor(path, method);
+            var matcher = actionDescriptorCollectionProvider.GetPossibleActionMatchersFor(currentContext);
 
             return actionSelector.HasMatcherController(matcher);
         }

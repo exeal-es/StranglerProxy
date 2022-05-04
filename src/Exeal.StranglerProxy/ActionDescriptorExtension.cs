@@ -12,18 +12,13 @@ namespace Exeal.StranglerProxy
     internal static class ActionDescriptorExtension
     {
         public static MatchingDescriptor GetPossibleActionMatchersFor(
-            this IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, string requestPath,
-            string httpMethod)
+            this IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, HttpContext currentContext)
         {
-            var actionDescriptors = actionDescriptorCollectionProvider.GetMatchersDescriptorsFor(requestPath);
+            var path = currentContext.Request.Path.Value;
 
-            var httpContext = new DefaultHttpContext();
+            var actionDescriptors = actionDescriptorCollectionProvider.GetMatchersDescriptorsFor(path);
 
-            httpContext.Request.Path = requestPath;
-
-            httpContext.Request.Method = httpMethod;
-
-            var routeContext = new RouteContext(httpContext);
+            var routeContext = new RouteContext(currentContext);
 
             return new MatchingDescriptor(routeContext, actionDescriptors);
         }
