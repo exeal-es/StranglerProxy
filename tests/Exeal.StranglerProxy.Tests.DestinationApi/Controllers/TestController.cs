@@ -90,6 +90,12 @@ namespace DestinationApi.Controllers
         {
             return Ok(new { DestinationController = true });
         }
-        
+
+        [Route("test14/{argument}")]
+        [HttpGet]
+        public IActionResult Test14(string argument)
+        {
+            return Ok(new { DestinationController = true, Argument = argument });
+        }
     }
 }
