@@ -304,5 +304,22 @@ namespace Exeal.StranglerProxy.Tests
 
             Assert.Equal("{\"overrideController\":true}", body);
         }
+
+        [Fact]
+        public async Task DoNotExcludeOverwrittenResourceSimilarToExcluded()
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("test13B");
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"overrideController\":true}", body);
+        }
     }
 }

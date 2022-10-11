@@ -69,7 +69,7 @@ namespace Exeal.StranglerProxy
             {
                 requestedPath = requestedPath.ToLower();
 
-                var pattern = $@"^([/]{excludedResource.ToLower()}[/]?)";
+                var pattern = $@"^([/]{excludedResource.ToLower()}([/]|$))";
 
                 return Regex.IsMatch(requestedPath, pattern);
             }; 
