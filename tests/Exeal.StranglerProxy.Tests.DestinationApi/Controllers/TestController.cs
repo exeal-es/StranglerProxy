@@ -83,5 +83,13 @@ namespace DestinationApi.Controllers
                 ContentType = this.Request.ContentType
             });
         }
+
+        [Route("test13")]
+        [HttpGet]
+        public IActionResult Test13()
+        {
+            return Ok(new { DestinationController = true });
+        }
+        
     }
 }

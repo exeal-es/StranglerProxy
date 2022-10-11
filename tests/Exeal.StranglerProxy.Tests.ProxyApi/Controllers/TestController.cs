@@ -39,5 +39,14 @@ namespace ProxyApi.Controllers
         {
             return Ok(new { OverrideController = true, Argument = argument });
         }
+
+        [Route("test13")]
+        [HttpGet]
+        public IActionResult Test13()
+        {
+            return Ok(new { OverrideController = true });
+        }
+
+
     }
 }
