@@ -27,7 +27,16 @@ And also you need to add destination proxy url in your proxy api `appsettings.js
 
 ```
 "StranglerProxy": {
-  "DestinationURL": "http://localhost:5001"
+  "DestinationURL": "http://localhost:5001",
+  "ExcludedResources": [ ]
+}
+```
+You can also filter out certain resources so the proxy would not try to match those and always go to the destination URL
+
+```
+"StranglerProxy": {
+  "DestinationURL": "http://localhost:5001",
+  "ExcludedResources": [ "test13", "Test14/Hi" ]
 }
 ```
 

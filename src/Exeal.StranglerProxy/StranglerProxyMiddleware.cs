@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +20,8 @@ namespace Exeal.StranglerProxy
 
         private readonly String destinationURL;
 
+        private readonly ICollection<string> excludedResources;
+
         public StranglerProxyMiddleware(RequestDelegate next,
             IActionDescriptorCollectionProvider actionDescriptorCollectionProvider,
             IActionSelector actionSelector,
@@ -30,16 +35,17 @@ namespace Exeal.StranglerProxy
 
             destinationURL = configuration["StranglerProxy:DestinationURL"];
 
+            excludedResources = configuration.GetSection("StranglerProxy:ExcludedResources").Get<List<string>>() ?? new List<string>();
+
             ValidateDestinationURL(destinationURL);
         }
 
         public Task Invoke(HttpContext context)
         {
-            if (!HasMatcherController(context))
+            if (PathIsExcluded(context) || !HasMatcherController(context))
             {
                 return Forward(context);
             }
-
             return next.Invoke(context);
         }
 
@@ -48,6 +54,25 @@ namespace Exeal.StranglerProxy
             var matcher = actionDescriptorCollectionProvider.GetPossibleActionMatchersFor(currentContext);
 
             return actionSelector.HasMatcherController(matcher);
+        }
+
+        private bool PathIsExcluded(HttpContext currentContext)
+        {
+            var requestedPath = currentContext.Request.Path.ToUriComponent();
+
+            return excludedResources.Any(MatchesWith(requestedPath));
+        }
+
+        private static Func<string, bool> MatchesWith(string requestedPath)
+        {
+            return excludedResource =>
+            {
+                requestedPath = requestedPath.ToLower();
+
+                var pattern = $@"^([/]{excludedResource.ToLower()}([/]|$))";
+
+                return Regex.IsMatch(requestedPath, pattern);
+            }; 
         }
 
         private Task Forward(HttpContext context)

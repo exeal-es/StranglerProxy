@@ -83,5 +83,33 @@ namespace DestinationApi.Controllers
                 ContentType = this.Request.ContentType
             });
         }
+
+        [Route("test13")]
+        [HttpGet]
+        public IActionResult Test13()
+        {
+            return Ok(new { DestinationController = true });
+        }
+
+        [Route("test13B/")]
+        [HttpGet]
+        public IActionResult Test13B()
+        {
+            return Ok(new { DestinationController = true });
+        }
+
+        [Route("test14/{argument}")]
+        [HttpGet]
+        public IActionResult Test14(string argument)
+        {
+            return Ok(new { DestinationController = true, Argument = argument });
+        }
+
+        [Route("test14/")]
+        [HttpGet]
+        public IActionResult Test14()
+        {
+            return Ok(new { DestinationController = true });
+        }
     }
 }

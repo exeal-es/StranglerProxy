@@ -52,7 +52,7 @@ namespace Exeal.StranglerProxy.Tests
         }
 
         [Fact]
-        public async Task GetNotOverrittenController()
+        public async Task GetNotOverwrittenController()
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
@@ -69,7 +69,7 @@ namespace Exeal.StranglerProxy.Tests
         }
 
         [Fact]
-        public async Task PostNotOverrittenController()
+        public async Task PostNotOverwrittenController()
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
@@ -89,7 +89,7 @@ namespace Exeal.StranglerProxy.Tests
         }
 
         [Fact]
-        public async Task PostOverrittenController()
+        public async Task PostOverwrittenController()
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
@@ -109,7 +109,7 @@ namespace Exeal.StranglerProxy.Tests
         }
 
         [Fact]
-        public async Task PutNotOverrittenController()
+        public async Task PutNotOverwrittenController()
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
@@ -128,7 +128,7 @@ namespace Exeal.StranglerProxy.Tests
         }
 
         [Fact]
-        public async Task PutOverrittenController()
+        public async Task PutOverwrittenController()
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
@@ -147,7 +147,7 @@ namespace Exeal.StranglerProxy.Tests
         }
 
         [Fact]
-        public async Task DeleteNotOverrittenController()
+        public async Task DeleteNotOverwrittenController()
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
@@ -164,7 +164,7 @@ namespace Exeal.StranglerProxy.Tests
         }
 
         [Fact]
-        public async Task DeleteOverrittenController()
+        public async Task DeleteOverwrittenController()
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
@@ -216,7 +216,7 @@ namespace Exeal.StranglerProxy.Tests
         }
 
         [Fact]
-        public async Task GetDestinatinationCustomHeader()
+        public async Task GetDestinationCustomHeader()
         {
             // Arrange
             var client = proxyApiFactory.CreateClient();
@@ -250,6 +250,76 @@ namespace Exeal.StranglerProxy.Tests
             var body = await response.Content.ReadAsStringAsync();
 
             Assert.Equal("{\"destinationController\":true,\"contentType\":\"application/json\"}", body);
+        }
+
+        [Theory]
+        [InlineData("test13")]
+        [InlineData("TeSt13/")]
+        public async Task ExcludeOverwrittenResource(string path)
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(path);
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"destinationController\":true}", body);
+        }
+
+        [Fact]
+        public async Task ExcludeOverwrittenResourceWithArgument()
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("test14/Hi");
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"destinationController\":true,\"argument\":\"Hi\"}", body);
+        }
+
+        [Fact]
+        public async Task DoNotExcludeOverwrittenResourceWithoutArgument()
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("test14");
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"overrideController\":true}", body);
+        }
+
+        [Fact]
+        public async Task DoNotExcludeOverwrittenResourceSimilarToExcluded()
+        {
+            // Arrange
+            var client = proxyApiFactory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("test13B");
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal("{\"overrideController\":true}", body);
         }
     }
 }
